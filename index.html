@@ -1,275 +1,46 @@
 <!DOCTYPE html>
-<html lang="si">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#000000">
-    <title>Fuel Pass Max Pro</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
+    <title>Fuel Pro</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Poppins:wght@300;600&display=swap');
-
-        :root {
-            --gold: #FFD700;
-            --accent: #00F2FF;
-            --glass: rgba(255, 255, 255, 0.05);
-        }
-
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-        body {
-            margin: 0; padding: 0;
-            background: #000 url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000') center/cover no-repeat fixed;
-            font-family: 'Poppins', sans-serif;
-            color: white;
-            height: 100dvh;
-            display: flex; flex-direction: column;
-            overflow: hidden; /* Scroll නොවී screen එකටම fit වෙන්න */
-        }
-
-        body::before {
-            content: "";
-            position: fixed; inset: 0;
-            background: linear-gradient(180deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.98) 100%);
-            backdrop-filter: blur(15px);
-            z-index: -1;
-        }
-
-        /* ඉතාම කුඩා Header එකක් */
-        .header { padding: 8px 5px 2px; text-align: center; }
-        .logo-text { font-family: 'Orbitron', sans-serif; font-size: 10px; color: var(--gold); letter-spacing: 3px; margin: 0; opacity: 0.6; }
-
-        .tabs { display: flex; gap: 8px; padding: 5px 10px; }
-        .tab-btn { 
-            flex: 1; padding: 7px; background: var(--glass); 
-            border: 1px solid rgba(255,255,255,0.1); color: #666; 
-            border-radius: 10px; font-size: 10px; font-weight: 600; cursor: pointer;
-        }
-        .tab-btn.active { background: var(--gold); color: black; border: none; }
-
-        .v-selector { display: flex; overflow-x: auto; padding: 5px 10px; gap: 6px; scrollbar-width: none; }
-        .v-selector::-webkit-scrollbar { display: none; }
-        .v-chip { 
-            padding: 5px 12px; background: rgba(255,255,255,0.03); 
-            border-radius: 15px; font-size: 10px; white-space: nowrap; 
-            border: 1px solid rgba(255,255,255,0.05); 
-        }
-        .v-chip.selected { border-color: var(--accent); color: var(--accent); background: rgba(0, 242, 255, 0.1); }
-
-        .view { display: none; flex: 1; padding: 0 10px 5px; flex-direction: column; justify-content: space-between; }
-        .view.active { display: flex; }
-
-        /* --- MAXIMUM SPACE FOR QR --- */
-        .card-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around; /* ඉඩ බෙදා ගන්නවා */
-            align-items: center;
-            padding-bottom: 5px;
-        }
-
-        .v-no-main { 
-            font-family: 'Orbitron', sans-serif; 
-            font-size: 22px; font-weight: 900; color: #fff; margin: 0; 
-        }
-
-        /* QR Frame - Screen එකේ පළලටම යන විදිහට */
-        .qr-art-frame {
-            background: #FFFFFF;
-            width: 88vw; 
-            height: 88vw;
-            max-width: 380px; 
-            max-height: 380px;
-            border-radius: 15px;
-            padding: 10px;
-            display: flex; align-items: center; justify-content: center;
-            border: 8px solid #FFFFFF;
-            box-shadow: 0 0 30px rgba(255,255,255,0.1);
-        }
-        #mainQr { width: 100%; height: 100%; object-fit: contain; }
-
-        /* ඉතාම Compact Stats Section */
-        .stats-row { 
-            display: grid; grid-template-columns: 1fr 1fr 1fr; 
-            gap: 5px; width: 100%; max-width: 380px;
-        }
-        .stat-card { 
-            background: rgba(0,0,0,0.6); 
-            padding: 8px 2px; border-radius: 12px; 
-            text-align: center; border: 1px solid rgba(255,255,255,0.05); 
-        }
-        .s-val { color: var(--gold); font-size: 16px; font-weight: 700; display: block; }
-        .s-lbl { font-size: 8px; opacity: 0.4; text-transform: uppercase; }
-        .bal-val { color: #00ff88 !important; }
-
-        /* Manage View */
-        #vList { flex: 1; overflow-y: auto; width: 100%; }
-        .manage-card {
-            background: rgba(255,255,255,0.03); padding: 12px; border-radius: 15px;
-            margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;
-        }
-        .btn-save { background: var(--gold); color: black; border: none; padding: 15px; border-radius: 15px; font-weight: 900; width: 100%; margin-top: 10px; font-family: 'Orbitron'; }
-
-        #formOverlay {
-            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98);
-            z-index: 2000; padding: 20px; flex-direction: column;
-        }
-        input, select { width: 100%; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.08); border: 1px solid #333; color: white; margin-top: 8px; }
+        body { background: #000; color: #ffd700; font-family: sans-serif; text-align: center; padding: 50px; }
+        #status { font-size: 12px; color: #555; margin-top: 20px; }
+        .btn { background: #ffd700; padding: 15px; border-radius: 10px; width: 100%; border:none; font-weight:bold; }
     </style>
 </head>
 <body>
-
-    <div class="header"><p class="logo-text">FUEL PASS MAX PRO</p></div>
-
-    <div class="tabs">
-        <button class="tab-btn active" id="btnH" onclick="switchTab('home', this)">CARD</button>
-        <button class="tab-btn" id="btnM" onclick="switchTab('manage', this)">GARAGE</button>
+    <h1>FUEL PASS PRO</h1>
+    <p id="msg">පද්ධතිය පරීක්ෂා කරමින්...</p>
+    
+    <div style="border: 1px solid #333; padding: 20px; border-radius: 15px;">
+        <input type="text" id="v" placeholder="Vehicle No" style="width:90%; padding:10px; margin-bottom:10px;">
+        <button class="btn" onclick="save()">SAVE DATA</button>
     </div>
 
-    <div id="home" class="view active">
-        <div class="v-selector" id="topSelector"></div>
-        
-        <div class="card-container">
-            <p class="v-no-main" id="dispV">WP CAD-1234</p>
-            
-            <div class="qr-art-frame">
-                <img id="mainQr" src="" style="display:none;">
-                <p id="noQrText" style="color:#333; font-size: 10px;">ADD QR DATA</p>
-            </div>
-            
-            <div class="stats-row">
-                <div class="stat-card"><span class="s-val" id="dispQ">0L</span><span class="s-lbl">Quota</span></div>
-                <div class="stat-card"><span class="s-val" id="dispU" style="color:#ff4444">0L</span><span class="s-lbl">Used</span></div>
-                <div class="stat-card"><span class="s-val bal-val" id="dispR">0L</span><span class="s-lbl">Bal</span></div>
-            </div>
-            <p id="resetMsg" style="font-size: 7px; color: #444; margin-top: 2px;">AUTO RESET: SUNDAY 06:00 AM</p>
-        </div>
-    </div>
-
-    <div id="manage" class="view">
-        <div id="vList"></div>
-        <button class="btn-save" onclick="openForm()">+ ADD VEHICLE</button>
-    </div>
-
-    <div id="formOverlay">
-        <h2 style="font-family:'Orbitron'; color:var(--gold); text-align:center;">SETTINGS</h2>
-        <input type="hidden" id="editIdx" value="-1">
-        <select id="inT">
-            <option value="🚗">Car</option><option value="🏍️">Motorbike</option><option value="🚐">Van</option><option value="🛺">Tuk Tuk</option><option value="🚛">Truck</option>
-        </select>
-        <input type="text" id="inV" placeholder="Vehicle No">
-        <input type="number" id="inQ" placeholder="Total Quota">
-        <input type="number" id="inU" placeholder="Used">
-        <input type="file" id="inF" accept="image/*" style="border:none; margin-top:15px;">
-        <button class="btn-save" onclick="saveData()">SAVE</button>
-        <p onclick="hideForm()" style="color:#ff4444; text-align:center; margin-top:20px;">CANCEL</p>
-    </div>
+    <div id="status">Checking PWA Status...</div>
 
     <script>
-        let vehicles = JSON.parse(localStorage.getItem('f_v_final_list')) || [];
-        let activeIdx = parseInt(localStorage.getItem('f_v_final_idx')) || 0;
-
-        function checkWeeklyReset() {
-            const now = new Date();
-            const lastReset = localStorage.getItem('last_reset_premium_v2');
-            if (now.getDay() === 0 && lastReset !== now.toDateString()) {
-                vehicles.forEach(v => v.u = 0);
-                localStorage.setItem('f_v_final_list', JSON.stringify(vehicles));
-                localStorage.setItem('last_reset_premium_v2', now.toDateString());
-            }
+        // Service Worker ලියාපදිංචිය
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+            .then(() => { document.getElementById('status').innerText = "✅ Service Worker: Active"; })
+            .catch(() => { document.getElementById('status').innerText = "❌ SW Error"; });
         }
 
-        function switchTab(id, btn) {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            btn.classList.add('active');
-            id === 'home' ? renderHome() : renderManage();
+        // Install වෙන්න පුළුවන්ද බලන එක
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            document.getElementById('msg').innerText = "🚀 ඇප් එක ඉන්ස්ටෝල් කිරීමට සූදානම්!";
+            document.getElementById('msg').style.color = "#00ff88";
+        });
+
+        function save() {
+            localStorage.setItem('no', document.getElementById('v').value);
+            alert("Saved!");
         }
-
-        function renderHome() {
-            checkWeeklyReset();
-            const selector = document.getElementById('topSelector');
-            selector.innerHTML = '';
-            if(vehicles.length === 0) return;
-
-            vehicles.forEach((v, idx) => {
-                const chip = document.createElement('div');
-                chip.className = `v-chip ${idx === activeIdx ? 'selected' : ''}`;
-                chip.innerHTML = `${v.type} ${v.no}`;
-                chip.onclick = () => { activeIdx = idx; localStorage.setItem('f_v_final_idx', idx); renderHome(); };
-                selector.appendChild(chip);
-            });
-
-            const v = vehicles[activeIdx] || vehicles[0];
-            const bal = v.q - v.u;
-            document.getElementById('dispV').innerText = v.no;
-            document.getElementById('dispQ').innerText = v.q + "L";
-            document.getElementById('dispU').innerText = v.u + "L";
-            document.getElementById('dispR').innerText = bal + "L";
-
-            const qr = document.getElementById('mainQr');
-            if(v.qr) { qr.src = v.qr; qr.style.display = 'block'; document.getElementById('noQrText').style.display = 'none'; }
-        }
-
-        function renderManage() {
-            const list = document.getElementById('vList');
-            list.innerHTML = '';
-            vehicles.forEach((v, idx) => {
-                list.innerHTML += `<div class="manage-card">
-                    <div><b>${v.no}</b><br><small style="opacity:0.4">${v.q}L</small></div>
-                    <div>
-                        <button onclick="openForm(${idx})" style="background:none; border:1px solid #555; color:white; padding:5px 10px; border-radius:10px; font-size:10px;">EDIT</button>
-                        <button onclick="deleteV(${idx})" style="background:none; border:1px solid #ff4444; color:#ff4444; padding:5px 10px; border-radius:10px; font-size:10px; margin-left:5px;">X</button>
-                    </div>
-                </div>`;
-            });
-        }
-
-        function openForm(idx = -1) {
-            document.getElementById('formOverlay').style.display = 'flex';
-            if(idx > -1) {
-                const v = vehicles[idx];
-                document.getElementById('inV').value = v.no; document.getElementById('inQ').value = v.q;
-                document.getElementById('inU').value = v.u; document.getElementById('inT').value = v.type;
-                document.getElementById('editIdx').value = idx;
-            } else {
-                document.getElementById('editIdx').value = -1;
-                document.getElementById('inV').value = ''; document.getElementById('inQ').value = ''; document.getElementById('inU').value = '0';
-            }
-        }
-
-        function hideForm() { document.getElementById('formOverlay').style.display = 'none'; }
-
-        function saveData() {
-            const no = document.getElementById('inV').value.toUpperCase();
-            const q = document.getElementById('inQ').value;
-            const u = document.getElementById('inU').value;
-            const type = document.getElementById('inT').value;
-            const f = document.getElementById('inF').files[0];
-            const idx = parseInt(document.getElementById('editIdx').value);
-            if(!no || !q) return alert("Fill all!");
-
-            let vData = idx > -1 ? vehicles[idx] : { no, q, u, type, qr: '' };
-            vData.no = no; vData.q = q; vData.u = u; vData.type = type;
-
-            if(f) {
-                const reader = new FileReader();
-                reader.onload = e => { vData.qr = e.target.result; if(idx === -1) vehicles.push(vData); finalize(); };
-                reader.readAsDataURL(f);
-            } else { if(idx === -1) return alert("Upload QR!"); finalize(); }
-        }
-
-        function finalize() {
-            localStorage.setItem('f_v_final_list', JSON.stringify(vehicles));
-            hideForm(); renderHome(); switchTab('home', document.getElementById('btnH'));
-        }
-
-        function deleteV(idx) {
-            if(confirm("Remove?")) { vehicles.splice(idx,1); localStorage.setItem('f_v_final_list', JSON.stringify(vehicles)); renderManage(); }
-        }
-        window.onload = renderHome;
     </script>
 </body>
 </html>
